@@ -40,6 +40,7 @@ export class ToolchainStack extends Stack {
     const pipeline = new CodePipeline(this, 'cicd-pipeline', {
       pipelineName: 'CICD-Pipeline',
       selfMutation: true,
+      dockerEnabledForSynth: true,
       synth: synthStep,
       cliVersion: CDK_VERSION,
     });
