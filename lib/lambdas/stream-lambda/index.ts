@@ -1,13 +1,10 @@
-// var AWS = require("aws-sdk");
-// AWS.config.update({ region: process.env.AWS_REGION });
-// var codebuild = new AWS.CodeBuild({ apiVersion: "2016-10-06" });
 
-import { CodeBuildClient } from "@aws-sdk/client-codebuild";
+import { CodeBuildClient, StartBuildCommand } from "@aws-sdk/client-codebuild";
 const codeBuildClient = new CodeBuildClient({});
 
 const projectName = process.env.PROJECT_NAME;
 
-async function startBuildCommand(image) {
+async function startBuildCommand(image: any) {
   // For production use, implementing error handling for
   // the CodeBuild API calls is recommended. Transient errors, such as
   // reaching maximum number of allowed concurrent CodeBuild executions
@@ -32,16 +29,17 @@ async function startBuildCommand(image) {
 
   console.log("Calling startBuild() on CodeBuild project " + projectName);
   try {
-    const result = await codeBuildClient.startBuild(params).promise();
+    const command = new StartBuildCommand(params);
+    const result = await codeBuildClient.send(command);
     console.log(result);
   } catch (error) {
     console.error(error);
   }
 }
 
-exports.handler = function (event) {
+exports.handler = function (event: any) {
   // Process DynamoDB Streams event records
-  event.Records.forEach((record) => {
+  event.Records.forEach((record: any) => {
     // For all INSERT records, we provision a new deployment
 
     if (record.eventName == "INSERT") {

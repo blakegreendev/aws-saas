@@ -10,6 +10,7 @@ import { Construct } from 'constructs';
 import * as path from 'path';
 import { DynamoEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
 import { DEPLOYMENT_TABLE_NAME, REPOSITORY_NAME, CDK_VERSION } from './configuration';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
 
 export class ToolchainStack extends Stack {
@@ -141,10 +142,9 @@ export class ToolchainStack extends Stack {
     }));
 
     // Lambda Function for DynamoDB Streams
-    const streamLambda = new Function(this, 'stream-lambda', {
+    const streamLambda = new NodejsFunction(this, 'stream-lambda', {
       runtime: Runtime.NODEJS_18_X,
-      handler: 'index.handler',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas/stream-lambda')),
+      entry: 'lib/lambdas/stream-lambda/index.ts',
       environment: {
         PROJECT_NAME: 'provisioning-project',
       },
