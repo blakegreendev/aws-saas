@@ -14,15 +14,15 @@ export class DemoApprunnerStack extends Stack {
   constructor(scope: Construct, id: string, props: DemoApprunnerStackProps) {
     super(scope, id, props);
 
-    new CfnService(this, 'app-runner', {
-      sourceConfiguration: {
-        imageRepository: {
-          imageIdentifier: 'public.ecr.aws/aws-containers/hello-app-runner:latest',
-          imageRepositoryType: 'ECR_PUBLIC',
-        },
-      },
-      serviceName: props.deploymentType + '-' + props.deploymentId + '-solution',
-    });
+    // new CfnService(this, 'app-runner', {
+    //   sourceConfiguration: {
+    //     imageRepository: {
+    //       imageIdentifier: 'public.ecr.aws/aws-containers/hello-app-runner:latest',
+    //       imageRepositoryType: 'ECR_PUBLIC',
+    //     },
+    //   },
+    //   serviceName: props.deploymentType + '-' + props.deploymentId + '-solution',
+    // });
 
   }
 }

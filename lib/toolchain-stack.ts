@@ -38,7 +38,7 @@ export class ToolchainStack extends Stack {
     });
 
     const pipeline = new CodePipeline(this, 'cicd-pipeline', {
-      pipelineName: 'CICD-Pipeline',
+      pipelineName: 'base-pipeline',
       selfMutation: true,
       dockerEnabledForSynth: true,
       synth: synthStep,
